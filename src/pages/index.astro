@@ -1,11 +1,29 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import "../styles/global.css"
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const pageTitle = "Fénome - Créateur d'expériences événementielles";
+const pageDescription = "Accompagnement événementiel, direction artistique, scénographie, mapping vidéo, dispositifs interactifs et plus encore. Découvrez Fénome.";
 ---
+<BaseLayout title={pageTitle} description={pageDescription}>
+    <!-- C'est ici qu'on ajoutera toutes nos sections plus tard -->
+    <h1 class="text-3xl font-bold text-fenome-accent font-heading p-8">
+        Contenu de la page d'accueil Fénome à venir...
+    </h1>
+    <p class="p-8">
+        Notre BaseLayout fonctionne ! Le fond est sombre et le texte est clair.
+    </p>
 
-<Layout>
-	<Welcome />
-</Layout>
+    {/* Exemple d'utilisation des couleurs et polices */}
+    <div class="p-8 space-y-4">
+        <p class="text-fenome-main font-sans">Texte principal (Inter).</p>
+        <p class="text-fenome-head font-sans font-bold">Texte important (Inter Bold).</p>
+        <h2 class="text-fenome-head font-heading text-2xl font-semibold">Titre de section (Poppins SemiBold).</h2>
+        <button class="bg-fenome-accent text-fenome-dark font-heading font-bold py-2 px-4 rounded hover:opacity-80 transition-opacity">
+            Bouton Accent (Jaune)
+        </button>
+        <p class="text-fenome-muted">Texte Muted (Slate 500).</p>
+    </div>
+
+</BaseLayout>

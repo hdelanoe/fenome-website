@@ -1,0 +1,22 @@
+---
+// src/components/SectionTitle.astro
+interface Props {
+  title: string;
+  subtitle?: string; // Sous-titre optionnel
+  class?: string; // Classes additionnelles pour le wrapper
+}
+const { title, subtitle, class: className } = Astro.props;
+---
+<div class:list={["mb-12 md:mb-16 text-center", className]}>
+  {subtitle && (
+    <p class="text-sm md:text-base font-sans uppercase tracking-wider text-fenome-accent mb-2">
+      {subtitle}
+    </p>
+  )}
+  <h2 class="text-3xl md:text-4xl lg:text-5xl font-heading font-semibold text-fenome-head relative inline-block">
+    {title}
+    {/* Ligne décorative sous le titre */}
+    <span class="absolute left-1/2 transform -translate-x-1/2 -bottom-2 md:-bottom-3 block h-0.5 w-16 md:w-20 bg-fenome-accent"></span>
+    {/* h-0.5 = hauteur 0.125rem = 2px */}
+  </h2>
+</div>

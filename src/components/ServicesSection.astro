@@ -1,0 +1,42 @@
+---
+// src/components/ServicesSection.astro
+import SectionWrapper from './SectionWrapper.astro';
+import SectionTitle from './SectionTitle.astro';
+import ServiceCard from './ServiceCard.astro';
+---
+
+<SectionWrapper id="services">
+  <SectionTitle title="Nos Expertises" />
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+    {/* Service 1 */}
+    <ServiceCard title="Événementiel & Direction Artistique" icon="event">
+      Accompagnement complet, de la conception à la production. Organisation, logistique, programmation artistique.
+    </ServiceCard>
+
+    {/* Service 2 */}
+    <ServiceCard title="Décors, Lumière & Scénographie" icon="lightbulb">
+      Création d'univers visuels uniques, mise en lumière architecturale et scénique pour sublimer vos événements.
+    </ServiceCard>
+
+    {/* Service 3 */}
+    <ServiceCard title="Mapping Vidéo" icon="video">
+      Projections monumentales et sur mesure pour transformer les espaces et captiver votre audience.
+    </ServiceCard>
+
+    {/* Service 4 */}
+    <ServiceCard title="Location Matériel AV" icon="sound">
+      Parc de matériel professionnel vidéo, lumière et son pour répondre à tous vos besoins techniques.
+    </ServiceCard>
+
+    {/* Service 5 */}
+    <ServiceCard title="Dispositifs Interactifs" icon="interactive">
+      Murs interactifs, jeux immersifs, escape games, photobooths créatifs... Engagez votre public autrement.
+    </ServiceCard>
+
+    {/* Service 6 (Optionnel - exemple) */}
+    <!-- <ServiceCard title="Autre Service" icon="autre">
+      Description...
+    </ServiceCard> -->
+  </div>
+</SectionWrapper>

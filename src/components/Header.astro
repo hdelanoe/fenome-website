@@ -1,0 +1,113 @@
+---
+// src/components/Header.astro
+
+// On pourrait importer un composant Logo si on veut le rendre plus complexe
+// import Logo from './Logo.astro';
+
+// On pourrait aussi avoir besoin de JS pour le menu hamburger et l'effet d'apparition au scroll plus tard
+---
+
+<header
+  id="site-header"
+  class="absolute top-0 left-0 w-full z-50 py-4 px-6 md:px-10 transition-colors duration-300 ease-in-out">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Logo Fénome -->
+    <a href="#accueil" aria-label="Retour à l'accueil" class="block">
+      <!-- Remplacer par le vrai SVG du logo ou un composant Logo dédié -->
+       <!-- <span class="text-fenome-head font-heading text-2xl font-bold">
+        FÉNOME
+      </span> -->
+      <img src="src/assets/logo_full_copie2x_white.png" alt="Fénome Logo" class="h-8 w-auto" />
+    </a>
+
+    <!-- Menu Hamburger (Icône) -->
+    <button
+      id="menu-toggle"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+      class="text-fenome-head p-2">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+    </button>
+
+    <!-- Navigation Principale (pour Desktop - actuellement cachée car le bouton est md:hidden) -->
+    <!-- On décidera plus tard si on affiche une nav visible sur desktop ou si le hamburger est toujours présent -->
+    <!-- <nav class="hidden md:flex space-x-6">
+      <a href="#services" class="text-fenome-main hover:text-fenome-accent transition-colors">Services</a>
+      <a href="#portfolio" class="text-fenome-main hover:text-fenome-accent transition-colors">Portfolio</a>
+      <a href="#contact" class="text-fenome-main hover:text-fenome-accent transition-colors">Contact</a>
+    </nav> -->
+
+    <!-- Placeholder pour le menu mobile qui s'ouvrira -->
+    <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-fenome-dark p-6 md:hidden">
+       <!-- Le contenu du menu (liens) viendra ici -->
+       <p class="text-center text-fenome-muted">Menu Mobile à venir</p>
+    </div>
+
+  </div>
+</header>
+
+      
+<style>
+  #site-header {
+    position: fixed;
+    opacity: 1;
+    transform: translateY(0);
+    /* Transitions pour TOUTES les propriétés affectées */
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out, background-color 0.3s ease-in-out;
+  }
+  #site-header.is-hidden {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+  /* Pas besoin de définir .is-visible, l'absence de .is-hidden suffit */
+</style>
+
+    
+
+      
+<script>
+  // --- Gestion du Menu Hamburger (inchangé) ---
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  // ... (code du hamburger comme avant) ...
+
+  // --- Nouvelle Gestion de l'Apparition/Disparition au Scroll ---
+  const header = document.getElementById('site-header');
+  let lastScrollTop = 0;
+  // Réduire un peu le seuil peut rendre la transition plus rapide
+  const scrollThreshold = 25;
+
+  if (header) {
+    window.addEventListener('scroll', () => {
+      let scrollTop = window.scrollY; // Utilise scrollY
+      const isNearTop = scrollTop <= scrollThreshold;
+      // On considère qu'on scroll vers le bas seulement si on avance *et* qu'on a quitté le seuil haut
+      const isScrollingDown = scrollTop > lastScrollTop && !isNearTop;
+      const isScrollingUp = scrollTop < lastScrollTop && !isNearTop;
+
+      if (isNearTop) {
+        // PRÈS DU HAUT : Toujours visible, toujours transparent
+        header.classList.remove('is-hidden', 'bg-fenome-dark');
+      } else {
+        // SCROLLÉ PLUS BAS QUE LE SEUIL
+        if (isScrollingDown) {
+          // Scroll vers le BAS : Cacher et s'assurer qu'il n'a pas le fond opaque
+          header.classList.add('is-hidden');
+          header.classList.remove('bg-fenome-dark'); // Retire le fond *avant* l'anim si besoin
+        } else if (isScrollingUp) {
+          // Scroll vers le HAUT : Afficher et rendre opaque
+          header.classList.remove('is-hidden');
+          header.classList.add('bg-fenome-dark');
+        }
+        // Si on ne scroll pas significativement (scrollTop === lastScrollTop), on ne change rien
+      }
+
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }, { passive: true });
+  }
+</script>
+
+    

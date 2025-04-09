@@ -1,0 +1,67 @@
+---
+// src/components/HeroSection.astro
+import SectionWrapper from './SectionWrapper.astro'; // On n'utilise pas le wrapper standard ici pour le plein écran
+
+// Props pour le contenu (optionnel, on peut mettre le contenu directement)
+    interface Props {
+    title: string;
+    subtitle: string;
+    }
+    const { title = "FÉNOME", subtitle = "Créateur d'expériences événementielles immersives" } = Astro.props;
+
+    // TODO: Configurer la vidéo ou le slider
+    const backgroundImageUrl = "src/assets/lezard.png"; // REMPLACE par une vraie image dans /public/images
+    ---
+
+    <section
+    id="accueil"
+    class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden text-center text-fenome-head"
+   
+    >
+    <div class="absolute inset-0 z-0">
+        <img
+        src={backgroundImageUrl}
+        alt="Arrière-plan Héro Fénome"
+        class="w-full h-full object-cover object-center"
+        />
+        <!-- Overlay sombre pour la lisibilité -->
+        <div class="absolute inset-0 bg-black/50 z-10"></div>
+
+        <!-- TODO: Remplacer/Ajouter la Vidéo ou le Slider ici -->
+        <!-- Exemple Vidéo :
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+        <source src="/videos/votre-video.mp4" type="video/mp4">
+        </video>
+        -->
+    </div>
+
+    <!-- Contenu Superposé -->
+    <div class="relative z-20 px-6"> {/* z-20 pour être au-dessus de l'overlay */}
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-bold uppercase mb-4 animate-fade-in-up">
+        {title}
+        </h1>
+        <p class="text-lg md:text-xl font-sans text-fenome-main max-w-2xl mx-auto animate-fade-in-up animation-delay-300">
+        {subtitle}
+        </p>
+        <!-- Optionnel: Bouton ou Flèche scroll -->
+        <!-- <a href="#apropos" class="mt-8 inline-block animate-bounce">
+        <svg class="w-8 h-8 text-fenome-accent" ...> flèche </svg>
+        </a> -->
+    </div>
+
+    </section>
+
+    <style>
+    /* Animations simples d'apparition (optionnel) */
+    @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0; /* Start hidden */
+    }
+    .animation-delay-300 {
+        animation-delay: 0.3s;
+    }
+    </style>

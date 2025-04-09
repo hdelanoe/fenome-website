@@ -1,0 +1,23 @@
+---
+// src/components/AboutSection.astro
+import SectionWrapper from './SectionWrapper.astro';
+import SectionTitle from './SectionTitle.astro'; // On créera ce composant juste après
+---
+
+<SectionWrapper id="apropos" class="text-center">
+  <SectionTitle title="Du Concept à la Réalité" />
+
+  <div class="max-w-3xl mx-auto"> {/* Limite la largeur du texte */}
+    <p class="text-lg md:text-xl text-fenome-main leading-relaxed mb-6">
+      Chez Fénome, nous transformons vos idées en expériences mémorables.
+      Nous combinons créativité artistique et maîtrise technologique pour concevoir et produire des événements,
+      des scénographies et des dispositifs interactifs qui marquent les esprits.
+    </p>
+    <p class="text-fenome-muted">
+      Notre approche collaborative garantit que chaque projet reflète parfaitement votre vision,
+      de la première étincelle créative jusqu'au déploiement final.
+    </p>
+    <!-- Optionnel: Ajouter un bouton CTA ici si pertinent -->
+    <!-- <a href="#contact" class="mt-8 inline-block bg-fenome-accent ...">En savoir plus</a> -->
+  </div>
+</SectionWrapper>

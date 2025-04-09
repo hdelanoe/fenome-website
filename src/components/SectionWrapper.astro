@@ -1,0 +1,16 @@
+---
+// src/components/SectionWrapper.astro
+interface Props {
+id: string; // ID pour l'ancre de navigation
+class?: string; // Classes CSS additionnelles optionnelles
+// Autres props si besoin (ex: couleur de fond spécifique?)
+}
+
+const { id, class: className } = Astro.props;
+---
+<section id= {id} class:list={['py-16 md:py-24', className]}>
+<!-- py-16 md:py-24 = Padding vertical large, plus grand sur desktop -->
+<div class="container mx-auto px-6 md:px-10">
+    <slot /> {/* Le contenu spécifique de la section viendra ici */}
+</div>
+</section>

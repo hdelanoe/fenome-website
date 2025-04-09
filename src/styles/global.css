@@ -33,4 +33,25 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
+
+  /* --- Cacher la Scrollbar --- */
+
+  /* Pour Firefox */
+  html {
+    scrollbar-width: none;
+  }
+
+  /* Pour Chrome, Safari, Edge (WebKit) */
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  /* Optionnel mais recommandé pour WebKit si on cachait seulement sur body */
+  /* html::-webkit-scrollbar {
+    display: none;
+  } */
+
+  /* Pour IE/Edge (Ancien) - Moins pertinent aujourd'hui mais ne coûte rien */
+  body {
+    -ms-overflow-style: none;
+  }
 }

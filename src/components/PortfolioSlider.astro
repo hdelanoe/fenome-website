@@ -1,0 +1,114 @@
+---
+// src/components/PortfolioSlider.astro
+import SectionTitle from './SectionTitle.astro';
+import PortfolioCard from './PortfolioCard.astro';
+
+// Define the structure for portfolio items
+interface PortfolioItem {
+  id: number;
+  imageUrl: string;
+  altText: string;
+  category: string;
+  title: string;
+  description: string;
+  overlayOpacity?: number;
+  projectUrl?: string;
+}
+
+// Sample Portfolio Data (REPLACE with your actual projects)
+const portfolioItems: PortfolioItem[] = [
+   {
+    id: 1,
+    imageUrl: '/src/assets/lezard.png', // MAKE SURE PATHS ARE CORRECT
+    altText: 'Nissan Motorcycle Render',
+    category: 'Virtual Production - Rendu 3D',
+    title: 'NISSAN',
+    description: "Explore Nissan's 3D rendering project for a motorcycle, showcasing advanced design in a virtual format.",
+    overlayOpacity: 4,
+  },
+  {
+    id: 2,
+    imageUrl: '/src/assets/lezard.png',
+    altText: 'Nexity Arch Viz',
+    category: 'ARCH\'VIZ & Virtual Tour',
+    title: 'NEXITY',
+    description: "Explore Nexity's 3D rendering project, featuring a virtual tour experience via PixelStreaming...",
+    overlayOpacity: 3,
+  },
+   {
+    id: 3,
+    imageUrl: '/src/assets/lezard.png',
+    altText: 'Paris Simulation',
+    category: 'Simulation 3D',
+    title: 'MINISTERE DE L\'INTERIEUR',
+    description: "Discover 'Paris 2024,' a Ministry of the Interior initiative. We recreated a Parisian neighborhood...",
+    overlayOpacity: 2,
+  },
+  {
+    id: 4,
+    imageUrl: '/src/assets/lezard.png',
+    altText: 'Aviva VR Stadium',
+    category: 'Virtual Reality (VR) & Multijoueur',
+    title: 'AVIVA',
+    description: "Redefining Aviva Stadium, our VR project connects users seamlessly across PC, mobile, and VR...",
+    overlayOpacity: 2,
+  },
+   {
+    id: 5,
+    imageUrl: '/src/assets/lezard.png',
+    altText: 'Metahuman Face Scan',
+    category: 'Virtual Production',
+    title: 'Night UFO - MetaHuman',
+    description: 'Revolutionizing digital presence, our studio\'s project transforms individuals through facial scanning...',
+    overlayOpacity: 4,
+   },
+   {
+    id: 6,
+    imageUrl: '/src/assets/lezard.png',
+    altText: 'Burger King Virtual Production Set',
+    category: 'Virtual Production',
+    title: 'BURGER KING',
+    description: 'Revolutionizing Burger King\'s advertising, our virtual production expertise brought to life four spot ads...',
+    overlayOpacity: 4,
+   },
+   // Add more items...
+];
+---
+
+{/* Optional: Title */}
+<div class="container mx-auto px-6 md:px-10 pt-16 md:pt-24">
+  <SectionTitle title="Nos Projets" />
+</div>
+
+{/* Scroll Snap Container */}
+<section id="portfolio-items" class="portfolio-scroll-container relative w-full">
+  {portfolioItems.map((item) => (
+    // Each item MUST be h-screen for snapping to work correctly
+    <div class="portfolio-scroll-item w-full h-screen relative flex"> {/* Added flex here */}
+      {/* Card component fills this item */}
+      <PortfolioCard
+        imageUrl={item.imageUrl}
+        altText={item.altText}
+        category={item.category}
+        title={item.title}
+        description={item.description}
+        overlayOpacity={item.overlayOpacity}
+        projectUrl={item.projectUrl}
+      />
+    </div>
+  ))}
+</section>
+
+{/* NO Swiper scrollbar div here */}
+{/* NO Swiper script block here */}
+
+<style>
+  .portfolio-scroll-container {
+    outline: none;
+  }
+  /* CSS moved to global.css for clarity, but you could put the item styles here too */
+  /* .portfolio-scroll-item {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  } */
+</style>

@@ -6,6 +6,7 @@ import "../styles/global.css";
 import HeroSection from '../components/HeroSection.astro';
 import AboutSection from '../components/AboutSection.astro';
 import ServicesSection from '../components/ServicesSection.astro';
+import PortfolioSlider from '../components/PortfolioSlider.astro';
  // ...
 
 const pageTitle = "Fénome - Créateur d'expériences événementielles";
@@ -13,7 +14,7 @@ const pageDescription = "Accompagnement événementiel, direction artistique, sc
 ---
 <BaseLayout title={pageTitle} description={pageDescription}>
     <!-- C'est ici qu'on ajoutera toutes nos sections plus tard -->
-    <HeroSection subtitle="Créateur d'expériences événementielles immersives" />
+    <HeroSection title="Créateur d'expériences événementielles immersives" subtitle="Créateur d'expériences événementielles immersives" />
 
     {/* Exemple d'utilisation des couleurs et polices */}
     {/* --- Zone pour les autres sections --- */}
@@ -25,13 +26,18 @@ const pageDescription = "Accompagnement événementiel, direction artistique, sc
         <!-- Section Services -->
         <ServicesSection />
 
-        {/* Section Portfolio (placeholder) */}
-     <section id="portfolio" class="py-16 md:py-24"> {/* Ajout ID et padding */}
-        <div class="container mx-auto px-6 md:px-10 text-center"> {/* Ajout container */}
-          <h2 class="text-3xl font-heading font-semibold text-fenome-head mb-4">Portfolio (à venir)</h2>
-          <p>Contenu de la section portfolio...</p>
-        </div>
-    </section>
+        {/* === Portfolio Section === */}
+        <PortfolioSlider />
+        {/* ========================= */}
+
+        {/* Placeholder for Clients Section */}
+        <section id="clients" class="py-16 md:py-24">
+          <div class="container mx-auto px-6 md:px-10 text-center">
+             <h2 class="text-3xl font-heading font-semibold text-fenome-head mb-4">Nos Clients (à venir)</h2>
+             <p>A grid of client logos.</p>
+             {/* TODO: <ClientsSection /> */}
+          </div>
+        </section>
     </div>
 
 </BaseLayout>

@@ -39,6 +39,7 @@
   /* Pour Firefox */
   html {
     scrollbar-width: none;
+    scroll-snap-type: y mandatory;
   }
 
   /* Pour Chrome, Safari, Edge (WebKit) */
@@ -54,4 +55,9 @@
   body {
     -ms-overflow-style: none;
   }
+}
+
+#portfolio-items .portfolio-scroll-item {
+  scroll-snap-align: start;
+  scroll-snap-stop: always; /* Ensure it stops */
 }

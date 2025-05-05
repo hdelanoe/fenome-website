@@ -1,0 +1,92 @@
+---
+// src/components/PortfolioCard.astro
+import { Image } from 'astro:assets';
+
+interface Props {
+  imageUrl: string; // Path relative to src/assets/
+  altText: string;
+  category: string; // e.g., "Virtual Production - Rendu 3D"
+  title: string;
+  description: string;
+  projectUrl?: string; // Optional link for the project (href="#0" for now)
+  overlayOpacity?: number; // 2, 3, 4 etc.
+}
+
+const {
+  imageUrl,
+  altText,
+  category,
+  title,
+  description,
+  projectUrl = "#0", // Default to placeholder link
+  overlayOpacity = 4 // Default overlay
+} = Astro.props;
+
+// Map overlay opacity number to Tailwind class
+const overlayClasses: Record<number, string> = {
+  2: 'bg-black/20',
+  3: 'bg-black/30',
+  4: 'bg-black/40',
+  5: 'bg-black/50',
+};
+const overlayClass = overlayClasses[overlayOpacity] ?? 'bg-black/40';
+---
+
+<article class="relative h-full w-full flex flex-col overflow-hidden group">
+    {/* Background Image Container */}
+    <div class="absolute inset-0 z-0">
+        <Image
+        src={import(imageUrl)}
+        alt={altText}
+        class="w-full h-full object-cover object-center" 
+        loading="lazy"
+        quality={80}
+        widths={[480, 768, 1024, 1920]}
+        sizes="100vw"
+      />
+        {/* Overlay */}
+        <div class={`absolute inset-0 z-10 ${overlayClass} transition-opacity duration-300 group-hover:opacity-75`}></div>
+      </div>
+  
+  
+ {/* Content Container */}
+  {/* Positioned at the bottom, adjust as needed */}
+  <div class="relative z-20 mt-auto p-6 md:p-8 text-white flex-grow flex flex-col justify-end">
+    <div class="mb-2">
+      <span class="inline-block bg-black/50 text-fenome-accent text-xs uppercase font-semibold px-3 py-1 rounded">
+        {category}
+      </span>
+    </div>
+    <h3 class="text-2xl md:text-3xl font-heading font-semibold mb-3 leading-tight">
+      {/* Use an anchor if projectUrl is meaningful */}
+      {projectUrl !== "#0" ? (
+        <a href={projectUrl} class="hover:text-fenome-accent transition-colors duration-300">
+          {title}
+        </a>
+      ) : (
+        <span>{title}</span>
+      )}
+    </h3>
+    <p class="text-sm text-fenome-main/90 leading-relaxed line-clamp-3"> {/* line-clamp limits description length */}
+      {description}
+    </p>
+     {/* Optional: Add a 'Read More' link */}
+     {projectUrl !== "#0" && (
+       <a href={projectUrl} class="mt-4 inline-block text-fenome-accent font-semibold text-sm hover:underline">
+         Voir le projet →
+       </a>
+     )}
+  </div>
+</article>
+  
+
+  <style>
+/* Ensure line-clamp works */
+.line-clamp-3 { /* ... */ }
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>

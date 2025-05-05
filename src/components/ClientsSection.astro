@@ -1,0 +1,56 @@
+---
+// src/components/ClientsSection.astro
+import { Image } from 'astro:assets';
+import SectionWrapper from './SectionWrapper.astro';
+import SectionTitle from './SectionTitle.astro';
+
+// Define client data structure
+interface Client {
+  name: string; // For alt text and potentially title attribute
+  logoUrl: string; // Path relative to src/assets/
+}
+
+// Define the list of clients
+// IMPORTANT: Update logoUrl paths to match your actual file locations
+const clients: Client[] = [
+  { name: 'BearingPoint', logoUrl: '/src/assets/clients/astro.svg' },
+  { name: 'Nexity', logoUrl: '/src/assets/clients/citadelle.svg' },
+  { name: 'Arte', logoUrl: '/src/assets/clients/illkirch.png' },
+];
+---
+
+<SectionWrapper id="clients">
+  <SectionTitle title="Nos Clients" subtitle="Ils nous font confiance" />
+
+  <div class="mt-12 md:mt-16 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-0">
+    {/* Gap set to 0 because borders will create visual space */}
+    {clients.map((client) => (
+      <div class="client-logo-item border border-fenome-muted/20 aspect-square flex items-center justify-center p-6 md:p-8 transition-colors duration-300 hover:bg-fenome-muted/10">
+        {/* aspect-square ensures the container is square */}
+        {/* border classes create the grid lines */}
+        {/* p-6 md:p-8 adds padding inside the border */}
+        <Image
+          src={import(client.logoUrl)}
+          alt={`Logo ${client.name}`}
+          title={client.name}
+          class="max-h-12 w-auto object-contain"
+          loading="lazy"
+        />
+      </div>
+    ))}
+  </div>
+</SectionWrapper>
+
+<style>
+  /* Optional: Target specific borders if you don't want outer ones */
+  /* For example, remove top border from first row */
+  /* .client-logo-item:nth-child(-n+6) { border-top-width: 0; } */
+  /* Remove left border from first column */
+  /* .client-logo-item:nth-child(6n+1) { border-left-width: 0; } */
+  /* This gets complex quickly, the simple border on all sides is often fine */
+
+  /* Ensure logos aren't distorted */
+  .client-logo-item img {
+    max-width: 100%; /* Prevent image exceeding padding */
+  }
+</style>

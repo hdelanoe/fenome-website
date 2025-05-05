@@ -7,6 +7,7 @@ import HeroSection from '../components/HeroSection.astro';
 import AboutSection from '../components/AboutSection.astro';
 import ServicesSection from '../components/ServicesSection.astro';
 import PortfolioSlider from '../components/PortfolioSlider.astro';
+import ClientsSection from '../components/ClientsSection.astro';
  // ...
 
 const pageTitle = "Fénome - Créateur d'expériences événementielles";
@@ -30,14 +31,9 @@ const pageDescription = "Accompagnement événementiel, direction artistique, sc
         <PortfolioSlider />
         {/* ========================= */}
 
-        {/* Placeholder for Clients Section */}
-        <section id="clients" class="py-16 md:py-24">
-          <div class="container mx-auto px-6 md:px-10 text-center">
-             <h2 class="text-3xl font-heading font-semibold text-fenome-head mb-4">Nos Clients (à venir)</h2>
-             <p>A grid of client logos.</p>
-             {/* TODO: <ClientsSection /> */}
-          </div>
-        </section>
+        {/* === Clients Section === */}
+        <ClientsSection />
+        {/* ===================== */}
     </div>
 
 </BaseLayout>

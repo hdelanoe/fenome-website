@@ -1,60 +1,76 @@
 ---
 // src/components/Header.astro
-
-// On pourrait importer un composant Logo si on veut le rendre plus complexe
-// import Logo from './Logo.astro';
-
-// On pourrait aussi avoir besoin de JS pour le menu hamburger et l'effet d'apparition au scroll plus tard
 ---
 
 <header
   id="site-header"
   class="absolute top-0 left-0 w-full z-50 py-4 px-6 md:px-10 transition-colors duration-300 ease-in-out">
   <div class="container mx-auto flex justify-between items-center">
-    <!-- Logo Fénome -->
-    <a href="#accueil" aria-label="Retour à l'accueil" class="block">
-      <!-- Remplacer par le vrai SVG du logo ou un composant Logo dédié -->
-       <!-- <span class="text-fenome-head font-heading text-2xl font-bold">
-        FÉNOME
-      </span> -->
-      <img src="src/assets/logo_full_copie2x_white.png" alt="Fénome Logo" class="h-8 w-auto" />
+    {/* Logo Fénome - z-index élevé */}
+    <a href="/" aria-label="Retour à l'accueil" class="block z-[1000]">
+      <img src="/src/assets/logo_full_copie2x_white.png" alt="Fénome Logo" class="h-8 w-auto" />
     </a>
 
-    <!-- Menu Hamburger (Icône) -->
+    {/* Menu Hamburger - z-index élevé */}
     <button
       id="menu-toggle"
       aria-label="Ouvrir le menu"
       aria-expanded="false"
-      class="text-fenome-head p-2">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-      </svg>
+      class="text-fenome-head p-2 relative z-[1000]">
+      {/* Conteneur pour les lignes (pour l'animation X) */}
+      <div class="w-6 h-6 flex flex-col justify-between items-center relative">
+        <span class="toggle-line block w-full h-0.5 bg-current transition-transform duration-300 ease-in-out origin-center"></span>
+        <span class="toggle-line block w-full h-0.5 bg-current transition-opacity duration-300 ease-in-out mt-1.5"></span>
+        <span class="toggle-line block w-full h-0.5 bg-current transition-transform duration-300 ease-in-out origin-center mt-1.5"></span>
+      </div>
+       <span class="sr-only">Menu</span>
     </button>
 
-    <!-- Navigation Principale (pour Desktop - actuellement cachée car le bouton est md:hidden) -->
-    <!-- On décidera plus tard si on affiche une nav visible sur desktop ou si le hamburger est toujours présent -->
-    <!-- <nav class="hidden md:flex space-x-6">
-      <a href="#services" class="text-fenome-main hover:text-fenome-accent transition-colors">Services</a>
-      <a href="#portfolio" class="text-fenome-main hover:text-fenome-accent transition-colors">Portfolio</a>
-      <a href="#contact" class="text-fenome-main hover:text-fenome-accent transition-colors">Contact</a>
-    </nav> -->
+    {/* --- Menu Petit Panneau (Inférieur Droit) --- */}
+    <div
+      id="mobile-menu"
+      class="fixed top-4 right-4 z-[990] w-64 max-w-[80vw]
+             bg-fenome-dark rounded-lg shadow-xl overflow-hidden 
+             flex flex-col
+             opacity-0 pointer-events-none transform scale-95 translate-y-2
+             transition-all duration-300 ease-out
+             "
+      aria-hidden="true"
+    >
+        {/* 1. Navigation (sans scroll, prend l'espace nécessaire) */}
+        <nav class="flex-1 min-h-0 p-4">
+          <ul class="space-y-2">
+              {/* Liens */}
+              <li><a href="/" class="menu-link block text-base font-medium text-fenome-muted hover:text-fenome-head transition-colors">Accueil</a></li>
+              <li><a href="/#services" class="menu-link block text-base font-medium text-fenome-muted hover:text-fenome-head transition-colors">Services</a></li>
+              <li><a href="/#portfolio" class="menu-link block text-base font-medium text-fenome-muted hover:text-fenome-head transition-colors">Portfolio</a></li>
+              <li><a href="/#clients" class="menu-link block text-base font-medium text-fenome-muted hover:text-fenome-head transition-colors">Clients</a></li>
+              <li><a href="/contact" class="menu-link block text-base font-medium text-fenome-muted hover:text-fenome-head transition-colors">Contact</a></li>
+          </ul>
+        </nav>
 
-    <!-- Placeholder pour le menu mobile qui s'ouvrira -->
-    <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-fenome-dark p-6 md:hidden">
-       <!-- Le contenu du menu (liens) viendra ici -->
-       <p class="text-center text-fenome-muted">Menu Mobile à venir</p>
+        {/* 2. Footer Optionnel (Reste en bas du contenu du menu) */}
+        <div class="mt-auto border-t border-fenome-muted/20 p-3 flex justify-center space-x-4"> {/* REMOVED bg-blue-500/50 */}
+            {/* Social Links */}
+            <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-fenome-muted hover:text-fenome-accent transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"> <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.59-11.018-3.714v-2.155z"/> </svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-fenome-muted hover:text-fenome-accent transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"> <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.25-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.85s.012-3.584.07-4.85c.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.273 0-3.663.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.67.072 4.948.072s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.669.073-4.948s-.014-3.668-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.282-.059-1.67-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/> </svg>
+            </a>
+             {/* Ajoute Twitter/X ou autres */}
+        </div>
     </div>
+    {/* ----------------------------- */}
 
   </div>
 </header>
 
-      
 <style>
   #site-header {
     position: fixed;
     opacity: 1;
     transform: translateY(0);
-    /* Transitions pour TOUTES les propriétés affectées */
     transition: opacity 0.3s ease-out, transform 0.3s ease-out, background-color 0.3s ease-in-out;
   }
   #site-header.is-hidden {
@@ -62,52 +78,129 @@
     transform: translateY(-100%);
     pointer-events: none;
   }
-  /* Pas besoin de définir .is-visible, l'absence de .is-hidden suffit */
+
+  #mobile-menu {
+  display: flex;
+  flex-direction: column;
+  max-height: 200vh;
+}
+
+/* Correction pour le contenu scrollable */
+#mobile-menu nav {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+  #mobile-menu.is-open {
+    /* État ouvert */
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1) translateY(0);
+  }
+
+  /* Styles pour l'animation du bouton burger */
+  #menu-toggle.is-active .toggle-line:nth-child(1) {
+     transform: translateY(8px) rotate(45deg); /* Ajuste 8px selon l'espacement réel */
+  }
+  #menu-toggle.is-active .toggle-line:nth-child(2) {
+     opacity: 0;
+  }
+   #menu-toggle.is-active .toggle-line:nth-child(3) {
+     transform: translateY(-8px) rotate(-45deg); /* Ajuste -8px selon l'espacement réel */
+  }
+
+
 </style>
 
-    
 
-      
 <script>
-  // --- Gestion du Menu Hamburger (inchangé) ---
+  // --- Éléments DOM ---
   const menuToggle = document.getElementById('menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
-  // ... (code du hamburger comme avant) ...
-
-  // --- Nouvelle Gestion de l'Apparition/Disparition au Scroll ---
   const header = document.getElementById('site-header');
+
+  // --- Gestion du Menu Hamburger ---
+  if (menuToggle && mobileMenu && header) {
+    menuToggle.addEventListener('click', (event) => {
+      event.stopPropagation(); // Empêche le clic de se propager au document immédiatement
+      const willBeOpen = !mobileMenu.classList.contains('is-open');
+
+      // Toggle l'état ouvert/fermé
+      mobileMenu.classList.toggle('is-open');
+      menuToggle.classList.toggle('is-active');
+
+      // Met à jour les attributs ARIA
+      mobileMenu.setAttribute('aria-hidden', String(!willBeOpen));
+      menuToggle.setAttribute('aria-expanded', String(willBeOpen));
+
+       if (willBeOpen) {
+         header.classList.remove('is-hidden');
+       }
+    });
+
+    // Fermer le menu en cliquant sur un lien interne
+    const menuLinks = mobileMenu.querySelectorAll('a.menu-link');
+    menuLinks.forEach(link => {
+      link.addEventListener('click', (event) => {
+        event.stopPropagation(); // Empêche la fermeture via le clic extérieur
+        if (mobileMenu.classList.contains('is-open')) {
+            menuToggle.click(); // Simule un clic pour fermer
+        }
+      });
+    });
+
+    // Fermer le menu en cliquant à l'extérieur
+    document.addEventListener('click', (event) => {
+      // Vérifie si le menu est ouvert ET si la cible du clic N'EST PAS le menu OU un de ses enfants
+      // ET si la cible N'EST PAS le bouton toggle OU un de ses enfants
+      if (mobileMenu.classList.contains('is-open') && !mobileMenu.contains(event.target as Node) && !menuToggle.contains(event.target as Node)) {
+           menuToggle.click(); // Simule un clic sur le bouton pour fermer
+      }
+    });
+
+  } else {
+    console.error("ERROR: menuToggle, mobileMenu, or site-header not found!");
+  }
+
+  // --- Gestion de l'Apparition/Disparition au Scroll ---
   let lastScrollTop = 0;
-  // Réduire un peu le seuil peut rendre la transition plus rapide
   const scrollThreshold = 25;
 
-  if (header) {
+  if (header && mobileMenu) { // Vérifie header et mobileMenu
     window.addEventListener('scroll', () => {
-      let scrollTop = window.scrollY; // Utilise scrollY
+      // --- CONDITION POUR IGNORER LE SCROLL SI MENU OUVERT ---
+      // Cette condition est importante SI l'état ouvert du menu devait affecter le scroll du header
+      // Mais comme le petit menu n'interfère pas visuellement avec le header en scrollant,
+      // on pourrait techniquement retirer cette condition. Gardons-la pour l'instant par sécurité.
+      // ------------------------------------------------------
+
+      let scrollTop = window.scrollY;
       const isNearTop = scrollTop <= scrollThreshold;
-      // On considère qu'on scroll vers le bas seulement si on avance *et* qu'on a quitté le seuil haut
       const isScrollingDown = scrollTop > lastScrollTop && !isNearTop;
       const isScrollingUp = scrollTop < lastScrollTop && !isNearTop;
 
       if (isNearTop) {
-        // PRÈS DU HAUT : Toujours visible, toujours transparent
+        // PRÈS DU HAUT : Visible, Transparent
         header.classList.remove('is-hidden', 'bg-fenome-dark');
+        mobileMenu.classList.remove('is-hidden', 'bg-fenome-dark');
       } else {
-        // SCROLLÉ PLUS BAS QUE LE SEUIL
+        // SCROLLÉ PLUS BAS
         if (isScrollingDown) {
-          // Scroll vers le BAS : Cacher et s'assurer qu'il n'a pas le fond opaque
+          // BAS : Cacher, Transparent
           header.classList.add('is-hidden');
-          header.classList.remove('bg-fenome-dark'); // Retire le fond *avant* l'anim si besoin
+          header.classList.remove('bg-fenome-dark');
+          mobileMenu.classList.remove('bg-fenome-dark');
         } else if (isScrollingUp) {
-          // Scroll vers le HAUT : Afficher et rendre opaque
+          // HAUT : Afficher, Opaque
           header.classList.remove('is-hidden');
           header.classList.add('bg-fenome-dark');
+          mobileMenu.classList.add('bg-fenome-dark');
         }
-        // Si on ne scroll pas significativement (scrollTop === lastScrollTop), on ne change rien
       }
-
       lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     }, { passive: true });
+  } else {
+     if (!header) console.error("ERROR: site-header not found for scroll logic!");
+     if (!mobileMenu) console.error("ERROR: mobileMenu not found for scroll logic check!");
   }
 </script>
-
-    

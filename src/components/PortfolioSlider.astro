@@ -75,40 +75,134 @@ const portfolioItems: PortfolioItem[] = [
 ];
 ---
 
-{/* Optional: Title */}
-<div class="container mx-auto px-6 md:px-10 pt-16 md:pt-24">
-  <SectionTitle title="Nos Projets" />
-</div>
 
-{/* Scroll Snap Container */}
-<section id="portfolio-items" class="portfolio-scroll-container relative w-full">
-  {portfolioItems.map((item) => (
-    // Each item MUST be h-screen for snapping to work correctly
-    <div class="portfolio-scroll-item w-full h-screen relative flex"> {/* Added flex here */}
-      {/* Card component fills this item */}
-      <PortfolioCard
-        imageUrl={item.imageUrl}
-        altText={item.altText}
-        category={item.category}
-        title={item.title}
-        description={item.description}
-        overlayOpacity={item.overlayOpacity}
-        projectUrl={item.projectUrl}
-      />
-    </div>
-  ))}
+<section id="portfolio" class="py-16 md:py-24 overflow-hidden bg-fenome-dark">
+  {/* Optional Title */}
+  <div class="container mx-auto px-6 md:px-10">
+    <SectionTitle title="Nos Projets" />
+  </div>
+
+  <!-- ===>>> Swiper Container for Portfolio <<<=== -->
+  <div class="swiper portfolio-swiper mt-12"> {/* Add margin if needed */}
+    {/* Additional required wrapper */}
+    <div class="swiper-wrapper items-stretch"> {/* items-stretch helps keep height consistent */}
+
+      {/* Optional: Start Text Slide */}
+      <div class="swiper-slide !w-auto px-6 md:px-10 flex items-center justify-center">
+          {/* ... Your "NOS PROJETS" text blocks ... */}
+          <div class="text-center">
+            <h2 class="text-5xl md:text-7xl lg:text-8xl font-heading font-black uppercase text-fenome-muted/30 leading-none tracking-tighter">NOS</h2>
+            <h2 class="text-5xl md:text-7xl lg:text-8xl font-heading font-black uppercase text-fenome-muted/30 leading-none tracking-tighter -mt-2 md:-mt-4">PROJETS</h2>
+        </div>
+      </div>
+
+      {/* Portfolio Item Slides */}
+      {portfolioItems.map((item) => (
+        // Define slide width using Tailwind utilities
+        <div class="swiper-slide !w-[85vw] sm:!w-[60vw] md:!w-[45vw] lg:!w-[35vw] xl:!w-[30vw] h-auto">
+          <PortfolioCard
+            imageUrl={item.imageUrl}
+            altText={item.altText}
+            category={item.category}
+            title={item.title}
+            description={item.description}
+            overlayOpacity={item.overlayOpacity}
+            projectUrl={item.projectUrl}
+          />
+        </div>
+      ))}
+
+      {/* Optional: End Text Slide */}
+      <div class="swiper-slide !w-auto px-6 md:px-10 flex items-center justify-center">
+          {/* ... Your "PROJETS CRÉATIFS" text blocks ... */}
+          <div class="text-center">
+            <h2 class="text-5xl md:text-7xl lg:text-8xl font-heading font-black uppercase text-fenome-muted/30 leading-none tracking-tighter">PROJETS</h2>
+            <h2 class="text-5xl md:text-7xl lg:text-8xl font-heading font-black uppercase text-fenome-muted/30 leading-none tracking-tighter -mt-2 md:-mt-4">CRÉATIFS</h2>
+        </div>
+      </div>
+
+    </div> {/* End swiper-wrapper */}
+
+  </div> {/* End swiper portfolio-swiper */}
 </section>
 
-{/* NO Swiper scrollbar div here */}
-{/* NO Swiper script block here */}
 
-<style>
-  .portfolio-scroll-container {
-    outline: none;
+<style is:global>
+  .portfolio-swiper {
+     padding: 0 5vw;
+     width: 100%;
+     box-sizing: border-box;
   }
-  /* CSS moved to global.css for clarity, but you could put the item styles here too */
-  /* .portfolio-scroll-item {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-  } */
+
+  .portfolio-swiper .swiper-slide {
+    height: auto; /* Allow height based on content */
+    /* ===>>> INCREASE MINIMUM HEIGHT SIGNIFICANTLY <<<=== */
+    min-height: 100vh; /* Try 70% of viewport height */
+    /* Or a large fixed pixel value like: min-height: 650px; */
+    display: flex; /* Ensure child card stretches */
+    transition: opacity 0.3s ease;
+  }
+  .portfolio-swiper .swiper-slide > * {
+    width: 100%; /* Card fills slide width */
+  }
+
+  /* Style the scrollbar */
+  .portfolio-swiper .swiper-scrollbar { /* ... scrollbar styles ... */ }
+  .portfolio-swiper .swiper-scrollbar-drag { /* ... scrollbar drag styles ... */ }
+
+  /* Ensure text slides height matches or adapts */
+  .portfolio-swiper .swiper-slide.\!w-auto {
+      /* ===>>> MATCH THE MIN-HEIGHT <<<=== */
+      height: 70vh; /* Match the card min-height */
+      /* Or use the same fixed pixel value */
+      align-self: stretch;
+  }
 </style>
+
+{/* ===>>> ADD SWIPER SCRIPT BACK <<<=== */}
+<script>
+  import Swiper from 'swiper';
+  // Import modules needed for horizontal card carousel
+  import { Scrollbar, Mousewheel, FreeMode } from 'swiper/modules';
+
+  // Import Swiper styles
+  import 'swiper/css';
+  import 'swiper/css/scrollbar';
+  import 'swiper/css/free-mode';
+
+  const swiperContainer = document.querySelector('.portfolio-swiper') as HTMLElement;
+
+  if (swiperContainer) {
+    const swiper = new Swiper(swiperContainer, {
+      modules: [Scrollbar, Mousewheel, FreeMode],
+
+      // Configuration for Horizontal Card Carousel
+      direction: 'horizontal',
+      slidesPerView: 'auto', // Let slides define their own width
+      spaceBetween: 20,    // Gap (adjust as needed)
+      freeMode: {
+          enabled: true,
+          sticky: false,
+          momentumBounce: false,
+      },
+      mousewheel: {
+        enabled: true,
+        forceToAxis: true,
+      },
+      grabCursor: true,
+
+      scrollbar: {
+        el: '.portfolio-scrollbar',
+        hide: false, // Keep scrollbar visible
+        draggable: true,
+      },
+
+       breakpoints: {
+         768: { spaceBetween: 30, },
+         1024: { spaceBetween: 40, }
+       }
+    });
+  } else {
+    console.error("Portfolio Swiper container not found!");
+  }
+</script>

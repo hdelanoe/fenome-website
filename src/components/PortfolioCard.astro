@@ -36,16 +36,16 @@ const overlayClass = overlayClasses[overlayOpacity] ?? 'bg-black/40';
     {/* Background Image Container */}
     <div class="absolute inset-0 z-0">
         <Image
-        src={import(imageUrl)}
-        alt={altText}
-        class="w-full h-full object-cover object-center" 
-        loading="lazy"
-        quality={80}
-        widths={[480, 768, 1024, 1920]}
-        sizes="100vw"
+          src={import(imageUrl)}
+          alt={altText}
+          class="w-full h-full object-cover object-center transition-transform duration-500 ease-in-out group-hover:scale-105"
+          loading="lazy"
+          quality={80}
+          widths={[400, 600, 800]}
+          sizes="(max-width: 640px) 85vw, (max-width: 1024px) 60vw, (max-width: 1280px) 45vw, 35vw"
+         
       />
-        {/* Overlay */}
-        <div class={`absolute inset-0 z-10 ${overlayClass} transition-opacity duration-300 group-hover:opacity-75`}></div>
+        <div class={`absolute inset-0 z-10 ${overlayClass} ...`}></div>
       </div>
   
   

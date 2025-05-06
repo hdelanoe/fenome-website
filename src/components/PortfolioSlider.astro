@@ -2,11 +2,14 @@
 // src/components/PortfolioSlider.astro
 import SectionTitle from './SectionTitle.astro';
 import PortfolioCard from './PortfolioCard.astro';
+import type { ImageMetadata } from 'astro';
+
+import imgLezard from '../assets/images/lezard.png';
 
 // Define the structure for portfolio items
 interface PortfolioItem {
   id: number;
-  imageUrl: string;
+  image: ImageMetadata;
   altText: string;
   category: string;
   title: string;
@@ -19,7 +22,7 @@ interface PortfolioItem {
 const portfolioItems: PortfolioItem[] = [
    {
     id: 1,
-    imageUrl: '../assets/images/lezard.png', // MAKE SURE PATHS ARE CORRECT
+    image: imgLezard, // MAKE SURE PATHS ARE CORRECT
     altText: 'Nissan Motorcycle Render',
     category: 'Virtual Production - Rendu 3D',
     title: 'NISSAN',
@@ -28,7 +31,7 @@ const portfolioItems: PortfolioItem[] = [
   },
   {
     id: 2,
-    imageUrl: '../assets/images/lezard.png',
+    image: imgLezard,
     altText: 'Nexity Arch Viz',
     category: 'ARCH\'VIZ & Virtual Tour',
     title: 'NEXITY',
@@ -37,7 +40,7 @@ const portfolioItems: PortfolioItem[] = [
   },
    {
     id: 3,
-    imageUrl: '../assets/images/lezard.png',
+    image: imgLezard,
     altText: 'Paris Simulation',
     category: 'Simulation 3D',
     title: 'MINISTERE DE L\'INTERIEUR',
@@ -46,7 +49,7 @@ const portfolioItems: PortfolioItem[] = [
   },
   {
     id: 4,
-    imageUrl: '../assets/images/lezard.png',
+    image: imgLezard,
     altText: 'Aviva VR Stadium',
     category: 'Virtual Reality (VR) & Multijoueur',
     title: 'AVIVA',
@@ -55,7 +58,7 @@ const portfolioItems: PortfolioItem[] = [
   },
    {
     id: 5,
-    imageUrl: '../assets/images/lezard.png',
+    image: imgLezard,
     altText: 'Metahuman Face Scan',
     category: 'Virtual Production',
     title: 'Night UFO - MetaHuman',
@@ -64,7 +67,7 @@ const portfolioItems: PortfolioItem[] = [
    },
    {
     id: 6,
-    imageUrl: '../assets/images/lezard.png',
+    image: imgLezard,
     altText: 'Burger King Virtual Production Set',
     category: 'Virtual Production',
     title: 'BURGER KING',
@@ -101,7 +104,7 @@ const portfolioItems: PortfolioItem[] = [
         // Define slide width using Tailwind utilities
         <div class="swiper-slide !w-[85vw] sm:!w-[60vw] md:!w-[45vw] lg:!w-[35vw] xl:!w-[30vw] h-auto">
           <PortfolioCard
-            imageUrl={item.imageUrl}
+            image={item.image}
             altText={item.altText}
             category={item.category}
             title={item.title}

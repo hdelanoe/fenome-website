@@ -3,19 +3,24 @@
 import { Image } from 'astro:assets';
 import SectionWrapper from './SectionWrapper.astro';
 import SectionTitle from './SectionTitle.astro';
+import type { ImageMetadata } from 'astro';
+
+import astroLogo from '../assets/images/clients/astro.svg';
+import citadelleLogo from '../assets/images/clients/citadelle.svg';
+import illkirchLogo from '../assets/images/clients/illkirch.png';
 
 // Define client data structure
 interface Client {
   name: string; // For alt text and potentially title attribute
-  logoUrl: string; // Path relative to src/assets/
+  logo: ImageMetadata; // Path relative to src/assets/
 }
 
 // Define the list of clients
 // IMPORTANT: Update logoUrl paths to match your actual file locations
 const clients: Client[] = [
-  { name: 'BearingPoint', logoUrl: '../assets/images/clients/astro.svg' },
-  { name: 'Nexity', logoUrl: '../assets/images/clients/citadelle.svg' },
-  { name: 'Arte', logoUrl: '../assets/images/clients/illkirch.png' },
+  { name: 'BearingPoint', logo: astroLogo },
+  { name: 'Nexity', logo: citadelleLogo },
+  { name: 'Arte', logo: illkirchLogo },
 ];
 ---
 
@@ -30,7 +35,7 @@ const clients: Client[] = [
         {/* border classes create the grid lines */}
         {/* p-6 md:p-8 adds padding inside the border */}
         <Image
-          src={import(client.logoUrl)}
+          src={client.logo}
           alt={`Logo ${client.name}`}
           title={client.name}
           class="max-h-12 w-auto object-contain"

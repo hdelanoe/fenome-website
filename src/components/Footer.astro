@@ -1,5 +1,7 @@
 ---
 // src/components/Footer.astro
+import { Image } from 'astro:assets';
+import fenomeLogo from '../assets/images/logo_full_copie2x_white.png';
 const currentYear = new Date().getFullYear();
 ---
 
@@ -29,7 +31,15 @@ const currentYear = new Date().getFullYear();
       <div class="flex flex-col items-center md:items-start">
         <a href="#accueil" aria-label="Retour à l'accueil" class="block mb-4">
           <!-- Utilise la même image de logo que dans le header -->
-          <img src="src/assets/logo_full_copie2x_white.png" alt="Fénome Logo" class="h-8 w-auto" />
+          <Image
+            src={fenomeLogo}
+            alt="Fénome Logo"
+            class="h-8 w-auto"
+            loading="eager"
+            width={fenomeLogo.width}
+            height={fenomeLogo.height} 
+            densities={[1, 1.5, 2]}
+          />
         </a>
         <div class="flex space-x-4">
           <!-- Ajoute tes vrais liens ici -->

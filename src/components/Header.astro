@@ -1,6 +1,9 @@
 ---
 // src/components/Header.astro
+import { Image } from 'astro:assets';
+import fenomeLogo from '../assets/images/logo_full_copie2x_white.png';
 ---
+
 
 <header
   id="site-header"
@@ -8,7 +11,15 @@
   <div class="container mx-auto flex justify-between items-center">
     {/* Logo Fénome - z-index élevé */}
     <a href="/" aria-label="Retour à l'accueil" class="block z-[1000]">
-      <img src="../assets/images/logo_full_copie2x_white.png" alt="Fénome Logo" class="h-8 w-auto" />
+      <Image
+        src={fenomeLogo}
+        alt="Fénome Logo"
+        class="h-8 w-auto"
+        loading="eager"
+        width={fenomeLogo.width}
+        height={fenomeLogo.height} 
+        densities={[1, 1.5, 2]}
+      />
     </a>
 
     {/* Menu Hamburger - z-index élevé */}
